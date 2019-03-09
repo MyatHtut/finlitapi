@@ -11,4 +11,8 @@ class Circle extends Model
     {
         return $this->belongsToMany('App\User','user_circles','circle_id','user_id');
     }
+    public function invoice()
+    {
+        return $this->hasOne('App\Invoice');
+    }
 }
