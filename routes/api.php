@@ -21,3 +21,4 @@ Route::post('/verify-otp', 'AuthController@verifyOtp');
 Route::post('/first-time-password', 'AuthController@firstTimePassword');
 Route::post('/login-by-password', 'AuthController@loginByPhoneNumberAndPassword');
 Route::post('/updateUser', 'UserController@userEditAPI');
+Route::post('/create/circle', 'CircleController@create');
