@@ -20,4 +20,4 @@ Route::post('/signup', 'AuthController@signup');
 Route::post('/verify-otp', 'AuthController@verifyOtp');
 Route::post('/first-time-password', 'AuthController@firstTimePassword');
 Route::post('/login-by-password', 'AuthController@loginByPhoneNumberAndPassword');
-Route::post('/updateCustomer', 'Admin\CustomersController@customerEdit');
+Route::post('/updateUser', 'UserController@userEditAPI');

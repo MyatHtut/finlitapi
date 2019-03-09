@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        $otpQuery = User::where('otp', $request['otp'])->where('phone_no', $request['phone_number'])->first();
+        $otpQuery = User::where('otp', $request['otp'])->where('phone_number', $request['phone_number'])->first();
         if ($otpQuery) {
             $user = User::where('phone_number', $request['phone_number'])->first();
             $user->is_otp_confirm = true;
@@ -55,7 +55,7 @@ class AuthController extends Controller
         $customer = User::where('phone_number', $request->phone_number)->first();
         if ($customer && Hash::check($request->password, $customer->password)) {
 
-            return $this->respondCollection("Success Password Set", $customer);
+            return $this->respondCollection("Success Login", $customer);
         }
         return $this->exceptionResponse("Login Fail", 400);
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
 
     public function generateOTP($user)
     {
-        $user=User::find($user->id);
+        $user = User::find($user->id);
         $otpCode = "123456";
         $user->otp = $otpCode;
         $user->save();
