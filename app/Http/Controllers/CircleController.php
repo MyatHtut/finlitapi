@@ -47,4 +47,11 @@ class CircleController extends Controller
 
         return $this->respondCollection("Create Circle", $circle);
     }
+    public function circleDetail($id){
+        $circle=Circle::where('id',$id)->with('user')->first();
+        return $this->respondCollection("success to get Circle Detail",$circle);
+//        return $circle;
+//        return $circle->user()->get();
+
+    }
 }

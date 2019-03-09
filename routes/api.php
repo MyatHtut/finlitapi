@@ -22,3 +22,4 @@ Route::post('/first-time-password', 'AuthController@firstTimePassword');
 Route::post('/login-by-password', 'AuthController@loginByPhoneNumberAndPassword');
 Route::post('/updateUser', 'UserController@userEditAPI');
 Route::post('/create/circle', 'CircleController@create');
+Route::get('/circle/{id}', 'CircleController@circleDetail');
