@@ -51,7 +51,7 @@ class CircleController extends Controller
 
     public function circleDetail($id)
     {
-        $circle = Circle::where('id', $id)->with('user')->first();
+        $circle = Circle::where('id', $id)->with(['user','invoice.transcation'])->first();
         return $this->respondCollection("success to get Circle Detail", $circle);
 //        return $circle;
 //        return $circle->user()->get();
@@ -60,7 +60,7 @@ class CircleController extends Controller
 
     public function index($userID)
     {
-        $user = User::where("id", $userID)->with(['circle.invoice.transcation'])->get();
-        return $this->respondCollection("success", $user);
+        $users = User::where("id", $userID)->with(['circle.invoice.transcation'])->get();
+        return $this->respondCollection("success", $users);
     }
 }
