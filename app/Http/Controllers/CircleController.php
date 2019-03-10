@@ -20,8 +20,13 @@ class CircleController extends Controller
         $i = 0;
         $data = $request->all();
         $userCollection = [];
+
         foreach ($data['users'] as $user) {
-            array_push($userCollection, $user['user_id']);
+            $newuser = new User();
+            $newuser->name = $user['name'];
+            $newuser->phone_number = $user['phone_number'];
+            $newuser->save();
+            array_push($userCollection, $newuser->id);
         }
         $circle = new Circle();
         $circle->name = $request->input('name');
@@ -36,9 +41,10 @@ class CircleController extends Controller
         $invoice->circle_id = $circle->id;
         $invoice->save();
         foreach ($data['users'] as $user) {
+            $userQuery = User::where('phone_number', $user['phone_number'])->first();
             $transcation = new Transcations();
             $transcation->trans_no = "0000" . $i++;
-            $transcation->user_id = $user['user_id'];
+            $transcation->user_id = $userQuery->id;
             $transcation->amounts = $user['amount'];
             $transcation->invoice_id = $invoice->id;
             $transcation->status = 0;
@@ -51,7 +57,7 @@ class CircleController extends Controller
 
     public function circleDetail($id)
     {
-        $circle = Circle::where('id', $id)->with(['user','invoice.transcation'])->first();
+        $circle = Circle::where('id', $id)->with(['user', 'invoice.transcation'])->first();
         return $this->respondCollection("success to get Circle Detail", $circle);
 //        return $circle;
 //        return $circle->user()->get();
